@@ -8,6 +8,6 @@ Quando il valore letto è diverso da 1 si accende il led rosso fisso.
 Quando il motore è arrestato il valore passa a 7 per alcuni secondi.
 E' necessario installare la libreria ELMduino tramite il gestore librerie del Arudino IDE o in alternativa scaricarlo a questo indirizzo https://github.com/PowerBroker2/ELMduino
 
-Il progetto della scatola da stampare in 3D è compatibile con la scheda ESP32 di AZDelivery https://www.amazon.it/AZDelivery-sviluppo-successivo-versione-compatibile/dp/B08BTWJGFX
+Il file "ESP32 AZDelivery.stl" contiente il progetto della scatola da stampare in 3D è compatibile con la scheda ESP32 di AZDelivery https://www.amazon.it/AZDelivery-sviluppo-successivo-versione-compatibile/dp/B08BTWJGFX
 
 06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
