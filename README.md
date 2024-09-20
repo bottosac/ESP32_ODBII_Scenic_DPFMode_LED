@@ -6,7 +6,7 @@ Nel progetto Arduino è necessario impostare il MAC Address del dispositivo ELM3
 Quando ELM327 è collegato si accende il led blu. Ogni volta che la scheda interroga via OBD il dispositivo lampeggia di rosso.
 Quando il valore letto è diverso da 1 si accende il led rosso fisso.
 Quando il motore è arrestato il valore passa a 7 per alcuni secondi.
-E' necessario installare la libreria ELMduino tramite il gestore librerie del Arudino IDE o in alternativa scaricarlo a questo indirizzo https://github.com/PowerBroker2/ELMduino
+E' necessario installare la libreria ELMduino tramite il gestore librerie del Arduino IDE o in alternativa scaricarlo a questo indirizzo https://github.com/PowerBroker2/ELMduino
 
 Il file "ESP32 AZDelivery.stl" contiente il progetto della scatola da stampare in 3D è compatibile con la scheda ESP32 di AZDelivery https://www.amazon.it/AZDelivery-sviluppo-successivo-versione-compatibile/dp/B08BTWJGFX
 
