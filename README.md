@@ -11,3 +11,4 @@ E' necessario installare la libreria ELMduino tramite il gestore librerie del Ar
 Il file "ESP32 AZDelivery.stl" contiente il progetto della scatola da stampare in 3D è compatibile con la scheda ESP32 di AZDelivery https://www.amazon.it/AZDelivery-sviluppo-successivo-versione-compatibile/dp/B08BTWJGFX
 
 06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
+04/10/2024: v1.1 aggiunto poweron dei led per test all'avvio e spegnimento led blu dopo 30"
