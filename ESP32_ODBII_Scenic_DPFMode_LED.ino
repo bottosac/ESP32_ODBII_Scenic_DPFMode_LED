@@ -1,4 +1,5 @@
 //06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
+//04/10/2024: v1.1 aggiunto poweron dei led per test all'avvio
 
 #include "BluetoothSerial.h"
 #include "ELMduino.h"
@@ -9,11 +10,13 @@ BluetoothSerial SerialBT;
 
 ELM327 myELM327;
 
-uint32_t rpm = 0;
 bool dpfON = false;
 
 int nb_query_state = SEND_COMMAND; // Set the inital query state ready to send a command
 int dpfstate = 0;
+
+unsigned long ledBTTimerOff;
+int ledBTDelay = 30000;
 
 String msg;
 
@@ -29,17 +32,18 @@ void setup()
   pinMode(GPIO_BT, OUTPUT);
   pinMode(GPIO_DPF, OUTPUT);
 
+  digitalWrite(GPIO_BT, HIGH);
+  digitalWrite(GPIO_DPF, HIGH);
 
-//digitalWrite(GPIO_BT, HIGH);
-//digitalWrite(GPIO_DPF, HIGH);
+  delay(2000);
 
-delay(5000);
+  digitalWrite(GPIO_BT, LOW);
+  digitalWrite(GPIO_DPF, LOW);
 
   String s;
   Serial.begin(115200);
   delay(100);
   
-  //DEBUG_PORT.begin(115200);
   //ELM_PORT.setPin("1234");
   ELM_PORT.begin("ArduHUD", true);
 
@@ -71,6 +75,7 @@ delay(5000);
   }
 
   digitalWrite(GPIO_BT, HIGH);
+  ledBTTimerOff = millis();
 
   Serial.println("Connected to ELM327");
 }
@@ -122,4 +127,7 @@ void loop()
         myELM327.printError();
         delay(2000);                            // Wait 2 seconds until we query again
     }
+
+    if(digitalRead(GPIO_BT) && millis() > ledBTTimerOff + ledBTDelay)
+        digitalWrite(GPIO_BT, LOW);
 }
