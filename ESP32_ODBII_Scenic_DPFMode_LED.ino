@@ -1,5 +1,6 @@
 //06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
 //04/10/2024: v1.1 aggiunto poweron dei led per test all'avvio
+//10/12/2024: v1.2 aggiunto tentativo di riconnessione al obd ogni 10"
 
 #include "BluetoothSerial.h"
 #include "ELMduino.h"
@@ -27,6 +28,8 @@ String msg;
 uint8_t address[6]  = {0x00, 0x0D, 0x18, 0x3A, 0x67, 0x89};
 //00:0D:18:3A:67:89 Vecchio OBDII
 
+bool connected = false;
+
 void setup()
 {
   pinMode(GPIO_BT, OUTPUT);
@@ -47,23 +50,29 @@ void setup()
   //ELM_PORT.setPin("1234");
   ELM_PORT.begin("ArduHUD", true);
 
-  for (int i =0; i < 10; i++)
+  //Tentativo di connessione
+  while (!connected)
   {
-    digitalWrite(GPIO_BT, !digitalRead(GPIO_BT));
-    delay(100);
-  }
-  digitalWrite(GPIO_BT, LOW);
+    for (int i =0; i < 10; i++)
+    {
+      digitalWrite(GPIO_BT, !digitalRead(GPIO_BT));
+      delay(100);
+    }
+    digitalWrite(GPIO_BT, LOW);
   
-  if (!ELM_PORT.connect(address))  //OBDII
-  {
-    Serial.println("Couldn't connect to OBD scanner - Phase 1");
-    while(1);
+    if (!ELM_PORT.connect(address))  //OBDII
+    {
+      Serial.println("Couldn't connect to OBD scanner - Phase 1");
+      delay(10000);
+    }
+    else
+      connected = true;
   }
 
   for (int i =0; i < 5; i++)
   {
     digitalWrite(GPIO_BT, !digitalRead(GPIO_BT));
-    delay(100);
+    delay(300);
   }
 
   digitalWrite(GPIO_BT, LOW);
