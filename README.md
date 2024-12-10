@@ -12,3 +12,4 @@ Il file "ESP32 AZDelivery.stl" contiente il progetto della scatola da stampare i
 
 06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
 04/10/2024: v1.1 aggiunto poweron dei led per test all'avvio e spegnimento led blu dopo 30"
+10/12/2024: v1.2 aggiunto tentativo di riconnessione al obd ogni 10"
