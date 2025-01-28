@@ -1,6 +1,7 @@
 //06/09/2024: v1 lettura messaggio 22 2056 DPF Mode (1=normale, 5=rigenerazione, 7=attesa) e gestione tramite led
 //04/10/2024: v1.1 aggiunto poweron dei led per test all'avvio
 //10/12/2024: v1.2 aggiunto tentativo di riconnessione al obd ogni 10"
+//28/01/2025: v1.3 aggiunto messaggio errore lettura centralina con 2 lampeggi brevi led rosso
 
 #include "BluetoothSerial.h"
 #include "ELMduino.h"
@@ -130,6 +131,15 @@ void loop()
     else if (myELM327.nb_rx_state != ELM_GETTING_MSG)
     {                                           // If state == ELM_GETTING_MSG, response is not yet complete. Restart the loop.
         digitalWrite(GPIO_DPF, LOW);
+        
+        //segnalazione di errore comunicazione con 2 lampeggi brevi
+        for (int i=0; i < 2; i++)
+        {
+          digitalWrite(GPIO_DPF, HIGH);
+          delay(500);
+          digitalWrite(GPIO_DPF, LOW);
+        }
+
         dpfON = false;
         
         nb_query_state = SEND_COMMAND;          // Reset the query state for the next command
